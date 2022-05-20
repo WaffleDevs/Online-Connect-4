@@ -186,7 +186,7 @@ function join() {
             $(`#${i}`).css("background-color", "blue")
           } else {
             $(`#${i}`).css("background-color", "black")
-       voiN   }
+          }
         }
         winLogic()
     });
