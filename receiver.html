@@ -1,13 +1,14 @@
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width">
-        <title>Online Chess - Host</title>
+        <title>Online Chess - Player</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <p id="result">Red's Turn</p>
+    	<p id="result">Red's Turn</p>
     <div id="1" class="dot"></div>
     <div id="2" class="dot"></div>
     <div id="3" class="dot"></div>
@@ -53,15 +54,10 @@
     <button id="reset">Reset</button>
         <button style="position: absolute; left: 0; bottom: 0; margin-left: 20px; margin-bottom: 20px; background-color: #333; border: 2px solid #fff; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 15px; cursor: pointer;" onclick="window.location.href = 'https://waffledevsalt.github.io'">Main Page</button>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha512-bnIvzh6FU75ZKxp0GXLH9bewza/OIw6dLVh9ICg0gogclmYGguQJWl8U30WpbsGTqbIiAwxTsbe76DErLq5EDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
-
-
-        <span style="font-weight: bold">ID: </span>
-        <input type="text" id="receiver-id" title="Input the ID from receive.html">
-        <button id="connect-button">Connect</button>
-
-        <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
-        <script src="sender.js"></script>
+        
+        <div id="receiver-id" style="font-weight: bold;" title="Copy this ID to the input on send.html.">ID:</div>
+                
+		<script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
+		<script src="receiver.js"></script>
     </body>
 </html>
