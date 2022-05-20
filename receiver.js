@@ -4,7 +4,7 @@ var board = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 var playing = true
 
 $('html').on('click', '.dot', function() {
-  if(turn == 2) return;
+  if(turn == 1) return;
   if (!playing) return;
   if (board[this.id - 1] != "0") return;
   var ID;
@@ -86,10 +86,10 @@ function winLogic() {
 
 
 var lastPeerId = null;
-var peer = null; // own peer object
+var peer = null; // Own peer object
+var peerId = null;
 var conn = null;
-var recvIdInput = document.getElementById("receiver-id");
-var connectButton = document.getElementById("connect-button");
+var recvId = document.getElementById("receiver-id");
 
 /**
  * Create the Peer object for our end of the connection.
@@ -97,7 +97,7 @@ var connectButton = document.getElementById("connect-button");
  * Sets up callbacks that handle any events related to our
  * peer object.
  */
-function initialize() {
+ function initialize() {
     // Create own peer object with connection to shared PeerJS server
     let chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     let password = ''
@@ -119,17 +119,24 @@ function initialize() {
         }
 
         console.log('ID: ' + peer.id);
+        recvId.innerHTML = "ID: " + peer.id;
+        status.innerHTML = "Awaiting connection...";
     });
     peer.on('connection', function (c) {
-        // Disallow incoming connections
-        c.on('open', function() {
-            c.send("Sender does not accept incoming connections");
-            setTimeout(function() { c.close(); }, 500);
-        });
-        //ready()
+        // Allow only a single connection
+        if (conn && conn.open) {
+            c.on('open', function() {
+                c.send("Already connected to another client");
+                setTimeout(function() { c.close(); }, 500);
+            });
+            return;
+        }
+
+        conn = c;
+        console.log("Connected to: " + conn.peer);
+        ready();
     });
     peer.on('disconnected', function () {
-        status.innerHTML = "Connection lost. Please reconnect";
         console.log('Connection lost. Please reconnect');
 
         // Workaround for peer.reconnect deleting previous id
@@ -149,26 +156,10 @@ function initialize() {
 };
 
 /**
- * Create the connection between the two Peers.
- *
- * Sets up callbacks that handle any events related to the
- * connection and data received on it.
+ * Triggered once a connection has been achieved.
+ * Defines callbacks to handle incoming data and connection events.
  */
-function join() {
-    // Close old connection
-    if (conn) {
-        conn.close();
-    }
-
-    // Create connection to destination peer specified in the input field
-    conn = peer.connect(recvIdInput.value, {
-        reliable: true
-    });
-
-    conn.on('open', function () {
-        alert('Connected!')
-    });
-    // Handle incoming data (messages only since this is the signal sender)
+function ready() {
     conn.on('data', function (data) {
         let value = `${data}`.split(';')
         console.log(value)
@@ -186,54 +177,14 @@ function join() {
             $(`#${i}`).css("background-color", "blue")
           } else {
             $(`#${i}`).css("background-color", "black")
-       voiN   }
+          }
         }
         winLogic()
     });
     conn.on('close', function () {
-        status.innerHTML = "Connection closed";
+        status.innerHTML = "Connection reset<br>Awaiting connection...";
+        conn = null;
     });
-};
+}
 
-/**
- * Get first "GET style" parameter from href.
- * This enables delivering an initial command upon page load.
- *
- * Would have been easier to use location.hash.
- */
-function getUrlParam(name) {
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regexS = "[\\?&]" + name + "=([^&#]*)";
-    var regex = new RegExp(regexS);
-    var results = regex.exec(window.location.href);
-    if (results == null)
-        return null;
-    else
-        return results[1];
-};
-
-// // Listen for enter in message box
-// sendMessageBox.addEventListener('keypress', function (e) {
-//     var event = e || window.event;
-//     var char = event.which || event.keyCode;
-//     if (char == '13')
-//         sendButton.click();
-// });
-// // Send message
-// sendButton.addEventListener('click', function () {
-//     if (conn && conn.open) {
-//         var msg = sendMessageBox.value;
-//         sendMessageBox.value = "";
-//         conn.send(msg);
-//         console.log("Sent: " + msg);
-//         addMessage("<span class=\"selfMsg\">Self: </span> " + msg);
-//     } else {
-//         console.log('Connection is closed');
-//     }
-// });
-// Start peer connection on click
-connectButton.addEventListener('click', join);
-
-// Since all our callbacks are setup, start the process of obtaining an ID
 initialize();
-
