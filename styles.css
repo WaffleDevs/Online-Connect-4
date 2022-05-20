@@ -1,0 +1,213 @@
+body {
+    font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+    background-color: white;
+	min-width: 450px;
+}
+
+h1 {
+    font-size: 1.75em;
+}
+
+h2 {
+    text-align: center;
+    font-size: 4em; 
+}
+
+td {
+    width: 50%;
+}
+
+input {
+	margin-bottom: 5px;
+}
+
+a:visited{ 
+	color: blue; 
+}
+
+.display {
+    width: 100%;
+    min-height: 400px;
+    padding-bottom: 20px;
+}
+
+.control {
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.control-button {
+    width: 100%;
+    min-height: 50px;
+}
+
+.display-box {
+    border: 2px solid black;
+}
+
+.title {
+    vertical-align: top;
+}
+
+.standby {
+    background-color: red;
+}
+
+.go {
+    background-color: green;
+}
+
+.fade {
+    background-color: yellow;
+}
+
+.off {
+    background-color: gray;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.no-display {
+    display: none;
+}
+
+.status {
+    height: 125px;
+    vertical-align: text-top;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 2px solid black;
+    
+}
+
+.message {
+    height: 125px;
+    max-height: 125px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid black;
+    overflow: auto;
+}
+
+.msg-time {
+    color: blue;
+}
+
+.cueMsg {
+    color: orange;
+}
+
+.selfMsg {
+    color: green;
+}
+
+.peerMsg {
+    color: red;
+}
+
+
+:root {
+  --margin-size: 5px;
+}
+
+body {
+  margin-top: 70px;
+  width: calc(70vw + var(--margin-size) * 14);
+  height: calc(60vw + var(--margin-size) * 12);
+  border: solid 5px #fff;
+  position: center;
+  vertical-align: center;
+  background-color: black;
+  text-align: center;
+  max-width: 770px;
+  max-height: 660px;
+}
+
+div {
+  max-width: 100px;
+  max-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666666;
+  border: 1px solid #f0f0f0;
+  box-sizing: border-box;
+  float: left;
+  width: calc(100vw/10);
+  height: calc(100vw/10);
+  margin: var(--margin-size);
+  border-radius: calc(100vw/10);
+}
+
+html {
+  margin: auto;
+  display: table;
+  background-color: black;
+}
+
+.redwon {
+  animation-name: redwon;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+.bluewon {
+  animation-name: bluewon;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes redwon {
+  from { background-color: black; }
+  to { background-color: #c00; }
+}
+
+@keyframes bluewon {
+  from { background-color: black; }
+  to { background-color: #00c; }
+}
+
+#result {
+  color: white;
+  font-family: 'Times', serif;
+  padding: 0;
+  position: absolute;
+  left: calc(50vw - 60px);
+  top: 20px;
+  width: 120px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#reset{
+ position: absolute;
+  left: calc(100vw/2 - 42px);
+  top: min(calc(60vw + 155px), 755px);
+  background-color: #000;
+  border: 2px solid #fff;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  cursor: pointer;
+}
+#reset:hover {
+  position: absolute;
+  left: calc(100vw/2 - 42px);
+  top: min(calc(60vw + 155px), 755px);
+  background-color: #fff;
+  border: 2px solid #fff;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
